@@ -1,0 +1,1022 @@
+<html>
+<head>
+<style>
+:root {
+  --cmf-navy: #1B3B6F;
+  --cmf-blue: #66B2FF;
+  --cmf-red: #E31D23;
+  --cmf-gray: #999999;
+  --cmf-light: #F5F5F5;
+  --cmf-white: #FFFFFF;
+  --font-title: 'Segoe UI', -apple-system, sans-serif;
+  --font-body: 'Segoe UI', -apple-system, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { font-family: var(--font-body); background: var(--cmf-light); }
+.portal { min-height: 100vh; background: var(--cmf-light); }
+
+/* HEADER */
+.hdr {
+  background: linear-gradient(90deg, var(--cmf-navy) 0%, #2d5fa3 100%);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.hdr-logo {
+  width: 44px;
+  height: 44px;
+  background: var(--cmf-white);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--cmf-red);
+  font-size: 18px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.hdr-info {
+  flex: 1;
+}
+.hdr-info h1 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cmf-white);
+  letter-spacing: 0.3px;
+}
+.hdr-info p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+  margin-top: 2px;
+}
+.hdr-cmark {
+  font-size: 11px;
+  background: var(--cmf-red);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* SCREENS */
+.scr { display: none; }
+.scr.on { display: block; }
+
+/* MAIN CONTAINER */
+.main-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+/* WELCOME BAR */
+.welcome {
+  background: var(--cmf-white);
+  border-left: 5px solid var(--cmf-red);
+  border-radius: 8px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.welcome-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--cmf-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.welcome-text {
+  flex: 1;
+}
+.welcome-text .name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cmf-navy);
+}
+.welcome-text .role {
+  font-size: 11px;
+  color: var(--cmf-gray);
+  margin-top: 2px;
+}
+.btn-logout {
+  background: transparent;
+  color: var(--cmf-navy);
+  border: 1px solid var(--cmf-gray);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-logout:hover {
+  background: var(--cmf-light);
+  border-color: var(--cmf-navy);
+}
+
+/* NAVIGATION TABS */
+.nav-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--cmf-gray);
+  margin-bottom: 24px;
+}
+.nav-tab {
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--cmf-gray);
+  border: none;
+  background: transparent;
+  border-bottom: 3px solid transparent;
+  transition: all 0.25s;
+  position: relative;
+  top: 2px;
+}
+.nav-tab:hover {
+  color: var(--cmf-navy);
+}
+.nav-tab.act {
+  color: var(--cmf-navy);
+  border-bottom-color: var(--cmf-red);
+}
+
+/* CARDS */
+.card {
+  background: var(--cmf-white);
+  border-radius: 10px;
+  padding: 22px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  border-top: 4px solid var(--cmf-blue);
+}
+.card.primary {
+  border-top-color: var(--cmf-red);
+}
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--cmf-navy);
+  margin-bottom: 6px;
+}
+.card-sub {
+  font-size: 12px;
+  color: var(--cmf-gray);
+  margin-bottom: 16px;
+}
+
+/* FORM FIELDS */
+.fld {
+  margin-bottom: 14px;
+}
+.fld label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--cmf-navy);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.fld input, .fld select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  transition: border-color 0.2s;
+}
+.fld input:focus, .fld select:focus {
+  outline: none;
+  border-color: var(--cmf-blue);
+  box-shadow: 0 0 0 3px rgba(102, 178, 255, 0.1);
+}
+.fld input[readonly] {
+  background: var(--cmf-light);
+  cursor: not-allowed;
+}
+.fld .hint {
+  font-size: 11px;
+  color: var(--cmf-gray);
+  margin-top: 4px;
+}
+
+/* GRID */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+/* BUTTONS */
+.btn {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+.btn-primary {
+  background: var(--cmf-red);
+  color: white;
+}
+.btn-primary:hover {
+  background: #c71920;
+  box-shadow: 0 4px 12px rgba(227, 29, 35, 0.3);
+}
+.btn-secondary {
+  background: var(--cmf-blue);
+  color: white;
+}
+.btn-secondary:hover {
+  background: #4a9ae8;
+  box-shadow: 0 4px 12px rgba(102, 178, 255, 0.3);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--cmf-navy);
+  border: 1px solid var(--cmf-navy);
+}
+.btn-outline:hover {
+  background: var(--cmf-light);
+}
+.btn-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+/* ALERTS */
+.alert {
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+.alert-error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+.alert-info {
+  background: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+.alert-warning {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+/* STEPS */
+.steps {
+  display: flex;
+  gap: 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.step {
+  flex: 1;
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--cmf-light);
+  color: var(--cmf-gray);
+  border-right: 1px solid #ddd;
+  transition: all 0.2s;
+}
+.step:last-child { border-right: none; }
+.step.act {
+  background: var(--cmf-red);
+  color: white;
+}
+.step.done {
+  background: var(--cmf-blue);
+  color: white;
+}
+
+/* PROGRESS */
+.progress-wrap {
+  margin: 16px 0;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--cmf-gray);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.progress-bar {
+  background: var(--cmf-light);
+  height: 8px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 8px;
+  background: linear-gradient(90deg, var(--cmf-red), var(--cmf-blue));
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+/* FILE DROP */
+.drop-zone {
+  border: 2px dashed var(--cmf-blue);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(102, 178, 255, 0.05);
+  transition: all 0.2s;
+}
+.drop-zone:hover {
+  border-color: var(--cmf-red);
+  background: rgba(227, 29, 35, 0.05);
+}
+.drop-zone-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+.drop-zone p {
+  font-size: 13px;
+  color: var(--cmf-navy);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.drop-zone .sub {
+  font-size: 11px;
+  color: var(--cmf-gray);
+}
+.file-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--cmf-navy);
+  margin-top: 8px;
+  display: none;
+}
+
+/* LOG BOX */
+.log-box {
+  background: var(--cmf-navy);
+  color: #e0e0e0;
+  border-radius: 6px;
+  padding: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.log-line { margin-bottom: 4px; }
+.log-ok { color: #66BB6A; }
+.log-err { color: #EF5350; }
+.log-warn { color: #FFA726; }
+.log-info { color: #66B2FF; }
+
+/* STATS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.stat {
+  background: linear-gradient(135deg, var(--cmf-light) 0%, #f0f8ff 100%);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+}
+.stat .label {
+  font-size: 11px;
+  color: var(--cmf-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.stat .value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cmf-navy);
+  margin-top: 4px;
+}
+.stat .value.ok { color: #66BB6A; }
+.stat .value.err { color: var(--cmf-red); }
+
+/* LOGIN FORM */
+.login-container {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 0 20px;
+}
+.login-card {
+  background: var(--cmf-white);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.login-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--cmf-red);
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+}
+.login-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--cmf-navy);
+  margin-bottom: 6px;
+}
+.login-sub {
+  font-size: 12px;
+  color: var(--cmf-gray);
+  margin-bottom: 18px;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+thead tr {
+  border-bottom: 2px solid var(--cmf-red);
+}
+th {
+  padding: 10px 8px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--cmf-navy);
+  background: var(--cmf-light);
+}
+td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #eee;
+}
+tr:hover {
+  background: rgba(102, 178, 255, 0.05);
+}
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.badge-ok {
+  background: #d4edda;
+  color: #155724;
+}
+.badge-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* DECORATIVE WAVE */
+.wave-deco {
+  height: 80px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 80"><path fill="rgba(102,178,255,0.1)" d="M0,40 Q150,20 300,40 T600,40 T900,40 T1200,40 L1200,80 L0,80 Z"/></svg>') repeat-x;
+  background-size: 300px 80px;
+  margin: 20px 0 0;
+}
+
+input[type="file"] { display: none; }
+</style>
+</head>
+<body>
+
+<div class="portal">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-logo">Ⓒ</div>
+    <div class="hdr-info">
+      <h1>COMFENALCO CARTAGENA — PORTAL SIMON</h1>
+      <p>Sistema de Información de Cajas de Compensación Familiar · Circular Externa 2025-00008</p>
+    </div>
+    <div class="hdr-cmark">SIMON</div>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="scr on" id="scr-login">
+    <div class="login-container">
+      <div class="login-card">
+        <div class="login-icon">🔐</div>
+        <div class="login-title">Autenticación de usuario</div>
+        <div class="login-sub">Acceso restringido · Sólo usuarios autorizados por Supersubsidio</div>
+        
+        <div id="login-alert"></div>
+        
+        <div class="fld" style="text-align: left;">
+          <label>Usuario (código CCF)</label>
+          <input type="text" id="usr" placeholder="CCF023.director" />
+        </div>
+        <div class="fld" style="text-align: left;">
+          <label>Contraseña</label>
+          <input type="password" id="pwd" placeholder="••••••••" />
+        </div>
+        <div class="fld" style="text-align: left;">
+          <label>Firma digital (certificado)</label>
+          <select id="cert">
+            <option value="">— Seleccione certificado —</option>
+            <option value="dir">Director Administrativo · CCF023-DA-2025</option>
+            <option value="rev">Revisor Fiscal · CCF023-RF-2025</option>
+            <option value="cnt">Contador · CCF023-CT-2025</option>
+          </select>
+          <div class="hint">Emitido por SIC/ONAC (Art. 1-014)</div>
+        </div>
+        
+        <button class="btn btn-primary" style="width: 100%; margin-top: 6px;" onclick="doLogin()">
+          🔓 Ingresar al portal
+        </button>
+        
+        <div class="alert alert-warning" style="margin-top: 12px; margin-bottom: 0;">
+          <span>⚠️ Hora límite: <strong>5:00 p.m.</strong> Envíos posteriores son extemporáneos.</span>
+        </div>
+        <div class="alert alert-info" style="margin-top: 8px; margin-bottom: 0;">
+          <span>ℹ️ Demo: <strong>CCF023.director</strong> / <strong>CCF2026</strong> / Director</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN PORTAL -->
+  <div class="scr" id="scr-main">
+    <div class="main-wrap">
+      
+      <!-- WELCOME -->
+      <div class="welcome">
+        <div class="welcome-avatar" id="avatar">—</div>
+        <div class="welcome-text">
+          <div class="name" id="welcome-name">Bienvenido/a</div>
+          <div class="role" id="welcome-role">Sesión activa</div>
+        </div>
+        <button class="btn-logout" onclick="doLogout()">📤 Salir</button>
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="nav-tabs">
+        <button class="nav-tab act" onclick="showTab('cargue')">📤 Nuevo cargue</button>
+        <button class="nav-tab" onclick="showTab('historial')">📋 Historial</button>
+        <button class="nav-tab" onclick="showTab('reglas')">✓ Reglas SIMON</button>
+      </div>
+
+      <!-- TAB: CARGUE -->
+      <div id="tab-cargue">
+        <div class="steps">
+          <div class="step act" id="step-1">1 · Identificación</div>
+          <div class="step" id="step-2">2 · Período</div>
+          <div class="step" id="step-3">3 · Archivo</div>
+          <div class="step" id="step-4">4 · Cargue</div>
+        </div>
+
+        <!-- PASO 1 -->
+        <div id="paso-1">
+          <div class="card primary">
+            <div class="card-title">Identificación del reporte</div>
+            <div class="card-sub">Seleccione capítulo y estructura según Anexo Técnico 2025-00008</div>
+            
+            <div class="fld">
+              <label>Capítulo / Tipo de información</label>
+              <select id="sel-cap" onchange="updArch()">
+                <option value="">— Seleccione capítulo —</option>
+                <option value="II">Capítulo II · Información estadística</option>
+                <option value="III">Capítulo III · Información financiera</option>
+                <option value="IV">Capítulo IV · Información de gestión</option>
+                <option value="V">Capítulo V · Fondos de ley (FONIÑEZ/FOSFEC/FOVIS)</option>
+                <option value="VI">Capítulo VI · Seguridad de la información</option>
+                <option value="VII">Capítulo VII · Información CCF</option>
+                <option value="VIII">Capítulo VIII · Proyectos de inversión</option>
+              </select>
+            </div>
+            
+            <div class="fld">
+              <label>Código de archivo / Estructura</label>
+              <select id="sel-arch" onchange="updNom()">
+                <option value="">— Seleccione primero un capítulo —</option>
+              </select>
+              <div class="hint" id="arch-hint"></div>
+            </div>
+            
+            <div class="g2">
+              <div class="fld">
+                <label>Código Caja (CCF)</label>
+                <input type="text" id="cod-caja" value="CCF023" readonly />
+              </div>
+              <div class="fld">
+                <label>Firma digital activa</label>
+                <input type="text" id="firma-act" readonly />
+              </div>
+            </div>
+            
+            <div class="btn-group">
+              <button class="btn btn-secondary" onclick="goStep(2)">Continuar →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PASO 2 -->
+        <div id="paso-2" style="display: none;">
+          <div class="card">
+            <div class="card-title">Período de reporte</div>
+            <div class="card-sub">Códigos de período según Art. 1-005</div>
+            
+            <div class="g2">
+              <div class="fld">
+                <label>Año</label>
+                <select id="sel-year" onchange="updNom()">
+                  <option value="2026">2026</option>
+                  <option value="2025">2025</option>
+                </select>
+              </div>
+              <div class="fld">
+                <label>Período</label>
+                <select id="sel-per" onchange="updNom()">
+                  <option value="01">01 · Enero</option>
+                  <option value="02">02 · Febrero</option>
+                  <option value="03">03 · Marzo</option>
+                  <option value="04">04 · Abril</option>
+                  <option value="05">05 · Mayo</option>
+                  <option value="06">06 · Junio</option>
+                  <option value="07">07 · Julio</option>
+                  <option value="08">08 · Agosto</option>
+                  <option value="09">09 · Septiembre</option>
+                  <option value="10">10 · Octubre</option>
+                  <option value="11">11 · Noviembre</option>
+                  <option value="12">12 · Diciembre</option>
+                  <option value="20">20 · Trimestre I</option>
+                  <option value="21">21 · Trimestre II</option>
+                  <option value="22">22 · Trimestre III</option>
+                  <option value="23">23 · Trimestre IV</option>
+                  <option value="30">30 · Semestre I</option>
+                  <option value="31">31 · Semestre II</option>
+                  <option value="50">50 · Anual</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="alert alert-info" style="margin-top: 12px;">
+              <span>📄 Nombre generado: <strong id="nom-arch" style="font-family: 'Courier New'; font-size: 11px;">—</strong></span>
+            </div>
+            
+            <div class="alert alert-warning">
+              <span>⏰ Límite: <strong>5:00 p.m.</strong> del día estipulado. Si cae en día no hábil, NO se traslada (Art. 1-010).</span>
+            </div>
+            
+            <div class="btn-group">
+              <button class="btn btn-outline" onclick="goStep(1)">← Atrás</button>
+              <button class="btn btn-secondary" onclick="goStep(3)">Continuar →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PASO 3 -->
+        <div id="paso-3" style="display: none;">
+          <div class="card">
+            <div class="card-title">Selección y carga de archivo</div>
+            <div class="card-sub">Formatos XML (principal) o PDF (complementario) — Art. 1-007</div>
+            
+            <div class="g2">
+              <div class="fld">
+                <label>Tipo de archivo</label>
+                <select id="t-arch" onchange="updTipo()">
+                  <option value="xml">XML — Datos estructurados</option>
+                  <option value="pdf">PDF — Documento complementario</option>
+                  <option value="txt">TXT — Archivo plano</option>
+                </select>
+                <div class="hint" id="t-hint">Formato estándar según Circular 2025-00008</div>
+              </div>
+              <div class="fld">
+                <label>Repositorio de origen</label>
+                <select id="sel-repo">
+                  <option value="local">Equipo local (disco)</option>
+                  <option value="drive">Google Drive (autorizado)</option>
+                  <option value="red">Red corporativa / NAS</option>
+                  <option value="sftp">SFTP institucional</option>
+                  <option value="sp">SharePoint CCF</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="drop-zone" id="drop-zone" ondragover="event.preventDefault(); this.style.opacity='0.8'" ondragleave="this.style.opacity='1'" ondrop="handleDrop(event)" onclick="document.getElementById('fi').click()">
+              <div class="drop-zone-icon">📁</div>
+              <p>Arrastre el archivo aquí o haga clic para seleccionar</p>
+              <div class="sub">Formatos: .xml, .pdf, .txt · Tamaño máximo: 50 MB</div>
+              <div class="file-name" id="file-name-disp"></div>
+            </div>
+            <input type="file" id="fi" accept=".xml,.pdf,.txt" onchange="selFile(this)" />
+            <div id="file-validation" style="margin-top: 10px;"></div>
+            
+            <div class="alert alert-info" style="margin-top: 12px;">
+              <span>ℹ️ Sistema valida estructura XSD, integridad referencial y reglas de contenido (Art. 1-008). Use aplicativo SOFIA para verificación previa.</span>
+            </div>
+            
+            <div class="btn-group">
+              <button class="btn btn-outline" onclick="goStep(2)">← Atrás</button>
+              <button class="btn btn-primary" onclick="iniciar()">📤 Iniciar cargue</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PASO 4 -->
+        <div id="paso-4" style="display: none;">
+          <div class="card primary">
+            <div class="card-title">Progreso del cargue</div>
+            <div class="card-sub" id="c-sub">Procesando y validando archivo...</div>
+            
+            <div class="stats" id="stats" style="display: none;">
+              <div class="stat">
+                <div class="label">Registros leídos</div>
+                <div class="value" id="st-leidos">—</div>
+              </div>
+              <div class="stat">
+                <div class="label">Válidos</div>
+                <div class="value ok" id="st-validos">—</div>
+              </div>
+              <div class="stat">
+                <div class="label">Errores</div>
+                <div class="value err" id="st-errores">0</div>
+              </div>
+            </div>
+            
+            <div class="progress-wrap">
+              <div class="progress-label">
+                <span id="prog-label">Iniciando...</span>
+                <span id="prog-pct">0%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="prog-fill" style="width: 0%;"></div>
+              </div>
+            </div>
+            
+            <div style="font-size: 11px; font-weight: 600; color: var(--cmf-navy); margin: 12px 0 8px;">LOG DE CARGUE</div>
+            <div class="log-box" id="log-box" aria-live="polite"></div>
+            
+            <div id="cargue-result" style="margin-top: 12px;"></div>
+            
+            <div class="btn-group" style="margin-top: 14px;">
+              <button class="btn btn-secondary" id="b-dl" style="display: none;" onclick="dlLog()">💾 Descargar log</button>
+              <button class="btn btn-outline" id="b-nuevo" style="display: none;" onclick="resetCargue()">+ Nuevo cargue</button>
+              <button class="btn btn-outline" id="b-cancel" onclick="cancelar()">✕ Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: HISTORIAL -->
+      <div id="tab-historial" style="display: none;">
+        <div class="card">
+          <div class="card-title">Historial de cargues 2026</div>
+          <div class="card-sub">Últimos reportes enviados a SIMON — Comfenalco Cartagena (CCF023)</div>
+          
+          <table>
+            <thead>
+              <tr>
+                <th>Archivo</th>
+                <th>Período</th>
+                <th>Fecha envío</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-family: 'Courier New'; font-size: 11px;">CCF023·2-001A·04·2026</td>
+                <td>Abr 2026</td>
+                <td>20/04/2026 14:32</td>
+                <td><span class="badge badge-ok">✓ Cargado</span></td>
+              </tr>
+              <tr>
+                <td style="font-family: 'Courier New'; font-size: 11px;">CCF023·2-006A·04·2026</td>
+                <td>Abr 2026</td>
+                <td>25/04/2026 09:15</td>
+                <td><span class="badge badge-ok">✓ Cargado</span></td>
+              </tr>
+              <tr>
+                <td style="font-family: 'Courier New'; font-size: 11px;">CCF023·4-095A·30·2026</td>
+                <td>Sem I 2026</td>
+                <td>—</td>
+                <td><span class="badge badge-pending">⏱ Pendiente</span></td>
+              </tr>
+              <tr>
+                <td style="font-family: 'Courier New'; font-size: 11px;">CCF023·3-015A·03·2026</td>
+                <td>Mar 2026</td>
+                <td>31/03/2026 16:58</td>
+                <td><span class="badge badge-ok">✓ Cargado</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB: REGLAS -->
+      <div id="tab-reglas" style="display: none;">
+        <div class="card primary">
+          <div class="card-title">Reglas de validación SIMON (Art. 1-008)</div>
+          <div class="card-sub">Jerarquía de validaciones aplicadas en tiempo real</div>
+          
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: var(--cmf-light); border-left: 4px solid var(--cmf-red); border-radius: 6px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--cmf-red); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0;">1</div>
+              <div>
+                <div style="font-size: 13px; font-weight: 600; color: var(--cmf-navy);">Estructura del archivo</div>
+                <div style="font-size: 11px; color: var(--cmf-gray); margin-top: 2px;">Validación XSD · Longitudes · Campos obligatorios · Valores monetarios.</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: var(--cmf-light); border-left: 4px solid var(--cmf-blue); border-radius: 6px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--cmf-blue); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0;">2</div>
+              <div>
+                <div style="font-size: 13px; font-weight: 600; color: var(--cmf-navy);">Integridad referencial</div>
+                <div style="font-size: 11px; color: var(--cmf-gray); margin-top: 2px;">Coherencia con tablas: DIVIPOLA, CIIU, Tipo afiliado, Parentesco, Tipo sector.</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: var(--cmf-light); border-left: 4px solid var(--cmf-gray); border-radius: 6px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--cmf-gray); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0;">3</div>
+              <div>
+                <div style="font-size: 13px; font-weight: 600; color: var(--cmf-navy);">Reglas de contenido</div>
+                <div style="font-size: 11px; color: var(--cmf-gray); margin-top: 2px;">Cruces entre archivos · Ecuaciones contables · Consistencia con Registraduría.</div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="margin: 14px 0; border-top: 2px solid var(--cmf-blue); padding-top: 14px;">
+            <div class="alert alert-error">
+              <span>🔒 <strong>Firma digital (Art. 1-014):</strong> Todos los archivos deben estar firmados. Firmas vencidas no eximen responsabilidad.</span>
+            </div>
+            <div class="alert alert-warning">
+              <span>⚠️ <strong>Registros repetidos (Art. 1-016):</strong> Se rechazan registros con campos descriptivos idénticos.</span>
+            </div>
+            <div class="alert alert-info">
+              <span>📞 <strong>Soporte SIMON:</strong> Únicamente vía GLPI (glpi.ssf.gov.co) · Lunes-Viernes 7:00 a.m. – 4:00 p.m.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="wave-deco"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const ARCHIVOS = {
+  II: [{c:"2-001A",n:"Empresas y aportantes",p:"Mensual",l:"Día 20"},{c:"2-002A",n:"Afiliados",p:"Mensual",l:"Día 20"},{c:"2-003A",n:"Afiliados a cargo",p:"Mensual",l:"Día 20"},{c:"2-004A",n:"Infraestructura",p:"Semestral",l:"Ene 25 / Jul 25"},{c:"2-005A",n:"Recurso humano",p:"Semestral",l:"Ene 25 / Jul 25"},{c:"2-006A",n:"Coberturas",p:"Mensual",l:"Día 25"}],
+  III: [{c:"3-015A",n:"Estado de situación financiera",p:"Mensual",l:"Cronograma"},{c:"3-016A",n:"Estado de resultados",p:"Mensual",l:"Cronograma"},{c:"3-022A",n:"Presupuesto general",p:"Anual",l:"Cronograma"}],
+  IV: [{c:"4-060A",n:"Población proyectada",p:"Anual",l:"Cronograma"},{c:"4-095A",n:"Informe de gestión",p:"Semestral",l:"Cronograma"},{c:"4-104B",n:"PQR",p:"Mensual",l:"Cronograma"}],
+  V: [{c:"5-172A",n:"POA-Cobertura AIPI",p:"Anual",l:"Cronograma"},{c:"5-395A",n:"Ejecución FOSFEC",p:"Mensual",l:"Cronograma"}],
+  VI: [{c:"S-001A",n:"Protección de datos",p:"Anual",l:"Cronograma"}],
+  VII: [{c:"7-001A",n:"Cajas de compensación",p:"Anual",l:"Cronograma"}],
+  VIII: [{c:"P-001A",n:"Estructura proyectos",p:"Cuando aplique",l:"Cronograma"}]
+};
+const USERS = {
+  "CCF023.director":{pw:"CCF2026",role:"Director Administrativo",cert:"dir",name:"Director Administrativo"},
+  "CCF023.revisor":{pw:"CCF2026",role:"Revisor Fiscal",cert:"rev",name:"Revisor Fiscal"},
+  "CCF023.contador":{pw:"CCF2026",role:"Contador",cert:"cnt",name:"Contador"}
+};
+let cu=null,logs=[],timer=null,sf=null;
+
+function doLogin(){
+  const u=document.getElementById('usr').value.trim();
+  const p=document.getElementById('pwd').value.trim();
+  const c=document.getElementById('cert').value;
+  const la=document.getElementById('login-alert');
+  la.innerHTML='';
+  if(!u||!p||!c){la.innerHTML='<div class="alert alert-error"><span>❌ Complete todos los campos.</span></div>';return;}
+  const usr=USERS[u];
+  if(!usr||usr.pw!==p||usr.cert!==c){la.innerHTML='<div class="alert alert-error"><span>❌ Credenciales inválidas o certificado incorrecto.</span></div>';return;}
+  cu={...usr,u};
+  document.getElementById('welcome-name').textContent='Bienvenido/a — '+usr.name;
+  document.getElementById('welcome-role').textContent=usr.role+' · Sesión autenticada';
+  document.getElementById('avatar').textContent=usr.name.substring(0,1);
+  document.getElementById('firma-act').value='CCF023-'+c.toUpperCase()+'-2025 (Vigente)';
+  document.getElementById('scr-login').classList.remove('on');
+  document.getElementById('scr-main').classList.add('on');
+}
+function doLogout(){
+  cu=null;sf=null;
+  document.getElementById('scr-main').classList.remove('on');
+  document.getElementById('scr-login').classList.add('on');
+  document.getElementById('usr').value='';
+  document.getElementById('pwd').value='';
+  document.getElementById('cert').value='';
+  resetCargue();
+}
+function showTab(t){
+  const tabs=['cargue','historial','reglas'];
+  const ids=['tab-cargue','tab-historial','tab-reglas'];
+  tabs.forEach((x,i)=>document.getElementById(ids[i]).style.display=t===x?'block':'none');
+  document.querySelectorAll('.nav-tab').forEach((el,i)=>el.classList.toggle('act',tabs[i]===t));
+}
+function updArch(){
+  const cap=document.getElementById('sel-cap').value;
+  const sel=document.getElementById('sel-arch');
+  const h=document.getElementById('arch-hint');
+  sel.innerHTML='<option value="">— Seleccione estructura —</option>';
+  if(ARCHIVOS[cap])ARCHIVOS[cap].forEach(a=>{
+    const o=document.createElement('option');o.value=a.c;o.textContent=a.c+' · '+a.n+' ('+a.p+')';sel.appendChild(o);
+  });
+  h.textContent='';
+  sel.onchange=()=>{const v=sel.value;if(v&&ARCHIVOS[cap]){const a=ARCHIVOS[cap].find(x=>x.c===v);if(a)h.textContent='Periodicidad: '+a.p+' · Límite: '+a.l;}updNom();};
+  updNom();
+}
+function updNom(){
+  const cj=document.getElementById('cod-caja')?.value||'CCF023';
+  const ar=document.getElementById('sel-arch')?.value||'';
+  const pr=document.getElementById('sel-per')?.value||'';
+  const yr=document.getElementById('sel-year')?.value||'';
+  const n=document.getElementById('nom-arch');
+  if(n)n.textContent=(ar&&pr&&yr)?cj+ar.replace('-','')+pr+yr+'.xml':'Complete los campos';
+}
+function goStep(n){
+  if(n===2&&!document.getElementById('sel-arch').value){alert('Seleccione estructura');return;}
+  for(let i=1;i<=4;i++){document.getElementById('paso-'+i).style.display=i===n?'block':'none';const s=document.getElementById('step-'+i);if(s){s.classList.remove('act','done');if(i===n)s.classList.add('act');else if(i<n)s.classList.add('done');}}
+}
+function updTipo(){
+  const t=document.getElementById('t-arch').value;const h=document.getElementById('t-hint');const fi=document.getElementById('fi');
+  if(t==='xml'){h.textContent='Formato estándar (Art. 1-007)';fi.accept='.xml,.xsd';}
+  else if(t==='pdf'){h.textContent='Documentos complementarios (Art. 1-015)';fi.accept='.pdf';}
+  else{h.textContent='Archivo de texto plano';fi.accept='.txt,.csv';}
+}
+function handleDrop(e){e.preventDefault();const f=e.dataTransfer.files[0];if(f)procF(f);}
+function selFile(inp){if(inp.files[0])procF(inp.files[0]);}
+function procF(f){
+  sf=f;const d=document.getElementById('file-name-disp');d.style.display='block';d.textContent='📄 '+f.name+' ('+Math.round(f.size/1024)+' KB)';
+  const box=document.getElementById('file-validation');const msgs=[];
+  if(f.size>50*1024*1024)msgs.push({k:'e',m:'Archivo supera 50 MB.'});
+  box.innerHTML=msgs.length?msgs.map(m=>'<div class="alert alert-'+m.k+'"><span>'+m.m+'</span></div>').join(''):'<div class="alert alert-success"><span>✓ Archivo validado. Listo para cargue.</span></div>';
+}
+function aLog(t,c){const ts=new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit',second:'2-digit'});const l='['+ts+'] '+t;logs.push(l);const b=document.getElementById('log-box');const d=document.createElement('div');d.className='log-line log-'+c;d.textContent=l;b.appendChild(d);b.scrollTop=b.scrollHeight;}
+function setProg(p,l){document.getElementById('prog-fill').style.width=p+'%';document.getElementById('prog-pct').textContent=p+'%';document.getElementById('prog-label').textContent=l;}
+function iniciar(){
+  if(!sf){alert('Seleccione un archivo');return;}
+  goStep(4);logs=[];document.getElementById('log-box').innerHTML='';
+  document.getElementById('b-dl').style.display='none';document.getElementById('b-nuevo').style.display='none';document.getElementById('b-cancel').style.display='inline-block';
+  document.getElementById('stats').style.display='none';document.getElementById('cargue-result').innerHTML='';
+  const pasos=[
+    {p:10,l:'Conectando con SIMON...',c:'info',m:'✓ Conexión establecida con SIMON (Supersubsidio).'},
+    {p:20,l:'Verificando firma...',c:'ok',m:'✓ Firma digital CCF023-'+(cu?cu.cert.toUpperCase():'DA')+'-2025 verificada.'},
+    {p:35,l:'Leyendo archivo...',c:'info',m:'✓ Archivo "'+sf.name+'" leído ('+Math.round(sf.size/1024)+' KB).'},
+    {p:50,l:'Validando estructura XSD...',c:'ok',m:'✓ Estructura conforme con esquema XSD.'},
+    {p:65,l:'Verificando integridad...',c:'ok',m:'✓ Tablas de referencia válidas.'},
+    {p:80,l:'Aplicando reglas de contenido...',c:'ok',m:'✓ Ecuaciones contables correctas.'},
+    {p:90,l:'Registrando en SIMON...',c:'ok',m:'✓ Cargue registrado: SIMON-'+new Date().getFullYear()+'-'+Math.floor(Math.random()*900000+100000)+'.'},
+    {p:100,l:'Completado',c:'ok',m:'✓ Archivo cargado exitosamente ante Supersubsidio.'}
+  ];
+  let i=0;function run(){if(i>=pasos.length){fin();return;}const s=pasos[i];setProg(s.p,s.l);aLog(s.m,s.c);i++;timer=setTimeout(run,600+Math.random()*400);}run();
+}
+function fin(){
+  document.getElementById('b-dl').style.display='inline-block';document.getElementById('b-nuevo').style.display='inline-block';document.getElementById('b-cancel').style.display='none';
+  document.getElementById('stats').style.display='grid';
+  const t=Math.floor(Math.random()*8000+1000);
+  document.getElementById('st-leidos').textContent=t.toLocaleString('es-CO');document.getElementById('st-validos').textContent=t.toLocaleString('es-CO');
+  document.getElementById('c-sub').textContent='Cargue finalizado · '+new Date().toLocaleString('es-CO');
+  document.getElementById('cargue-result').innerHTML='<div class="alert alert-success"><span>✓ <strong>Cargue exitoso.</strong> Archivo recibido y validado por SIMON.</span></div>';
+}
+function cancelar(){if(timer)clearTimeout(timer);aLog('Cargue cancelado','err');setProg(0,'Cancelado');document.getElementById('b-dl').style.display='inline-block';document.getElementById('b-nuevo').style.display='inline-block';document.getElementById('b-cancel').style.display='none';}
+function dlLog(){
+  const c='PORTAL SIMON — COMFENALCO CARTAGENA\n'+new Date().toLocaleString('es-CO')+'\nArchivo: '+document.getElementById('sel-arch').value+'\n'+logs.join('\n');
+  const b=new Blob([c],{type:'text/plain;charset=utf-8'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='LOG_SIMON_'+Date.now()+'.txt';a.click();URL.revokeObjectURL(u);
+}
+function resetCargue(){sf=null;goStep(1);document.getElementById('sel-cap').value='';document.getElementById('sel-arch').innerHTML='<option value="">— Seleccione —</option>';document.getElementById('arch-hint').textContent='';document.getElementById('log-box').innerHTML='';document.getElementById('file-name-disp').style.display='none';document.getElementById('file-validation').innerHTML='';document.getElementById('cargue-result').innerHTML='';document.getElementById('stats').style.display='none';setProg(0,'Iniciando...');logs=[];}
+</script>
+
+</body>
+</html>
