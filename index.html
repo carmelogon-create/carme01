@@ -470,6 +470,74 @@ html, body { font-family: var(--font-body); background: var(--cmf-light); }
   margin-bottom: 18px;
 }
 
+
+/* CREDENTIAL REVEAL */
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-wrap input {
+  padding-right: 42px;
+}
+.eye-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: var(--cmf-navy);
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  transition: background 0.2s, color 0.2s;
+}
+.eye-btn:hover,
+.eye-btn:focus {
+  background: var(--cmf-light);
+  outline: none;
+  color: var(--cmf-red);
+}
+.demo-credentials {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.demo-credentials-text {
+  flex: 1;
+  line-height: 1.45;
+}
+.demo-secret {
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.4px;
+}
+.demo-toggle {
+  border: 1px solid var(--cmf-blue);
+  background: var(--cmf-white);
+  color: var(--cmf-navy);
+  border-radius: 20px;
+  padding: 5px 9px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.demo-toggle:hover,
+.demo-toggle:focus {
+  border-color: var(--cmf-red);
+  color: var(--cmf-red);
+  outline: none;
+}
+
 /* TABLE */
 table {
   width: 100%;
@@ -540,7 +608,7 @@ input[type="file"] { display: none; }
     <div class="login-container">
       <div class="login-card">
         <div class="login-icon">🔐</div>
-        <div class="login-title">Autenticación </div>
+        <div class="login-title">Autenticación de usuario</div>
         <div class="login-sub">Acceso restringido · Sólo usuarios autorizados por Supersubsidio</div>
         
         <div id="login-alert"></div>
@@ -551,7 +619,10 @@ input[type="file"] { display: none; }
         </div>
         <div class="fld" style="text-align: left;">
           <label>Contraseña</label>
-          <input type="password" id="pwd" placeholder="••••••••" />
+          <div class="input-wrap">
+          <input type="password" id="pwd" placeholder="••••••••" autocomplete="current-password" />
+          <button type="button" class="eye-btn" id="pwd-eye" onclick="togglePasswordVisibility('pwd','pwd-eye')" aria-label="Mostrar contraseña" title="Mostrar contraseña">👁️</button>
+        </div>
         </div>
         <div class="fld" style="text-align: left;">
           <label>Firma digital (certificado)</label>
@@ -572,7 +643,10 @@ input[type="file"] { display: none; }
           <span>⚠️ Hora límite: <strong>5:00 p.m.</strong> Envíos posteriores son extemporáneos.</span>
         </div>
         <div class="alert alert-info" style="margin-top: 8px; margin-bottom: 0;">
-          <span>ℹ️ Demo: <strong>CCF023.director</strong> / <strong>CCF2026</strong> / Director</span>
+          <div class="demo-credentials">
+            <span class="demo-credentials-text">ℹ️ Demo: <strong class="demo-secret" id="demo-usr">••••••••••••••</strong> / <strong class="demo-secret" id="demo-pwd">••••••••</strong> / <strong>Director</strong></span>
+            <button type="button" class="demo-toggle" id="demo-eye" onclick="toggleDemoCredentials()" aria-label="Revelar credenciales demo" title="Revelar credenciales demo">👁️ Revelar</button>
+          </div>
         </div>
       </div>
     </div>
@@ -912,6 +986,33 @@ const USERS = {
   "CCF023.contador":{pw:"CCF2026",role:"Contador",cert:"cnt",name:"Contador"}
 };
 let cu=null,logs=[],timer=null,sf=null;
+
+const DEMO_USER = "CCF023.director";
+const DEMO_PASSWORD = "CCF2026";
+let demoVisible = false;
+function togglePasswordVisibility(inputId, btnId){
+  const input=document.getElementById(inputId);
+  const btn=document.getElementById(btnId);
+  if(!input||!btn)return;
+  const show=input.type==='password';
+  input.type=show?'text':'password';
+  btn.textContent=show?'🙈':'👁️';
+  btn.setAttribute('aria-label', show?'Ocultar contraseña':'Mostrar contraseña');
+  btn.title=show?'Ocultar contraseña':'Mostrar contraseña';
+}
+function toggleDemoCredentials(){
+  demoVisible=!demoVisible;
+  const u=document.getElementById('demo-usr');
+  const p=document.getElementById('demo-pwd');
+  const b=document.getElementById('demo-eye');
+  if(!u||!p||!b)return;
+  u.textContent=demoVisible?DEMO_USER:'••••••••••••••';
+  p.textContent=demoVisible?DEMO_PASSWORD:'••••••••';
+  b.textContent=demoVisible?'🙈 Ocultar':'👁️ Revelar';
+  b.setAttribute('aria-label', demoVisible?'Ocultar credenciales demo':'Revelar credenciales demo');
+  b.title=demoVisible?'Ocultar credenciales demo':'Revelar credenciales demo';
+}
+
 
 function doLogin(){
   const u=document.getElementById('usr').value.trim();
