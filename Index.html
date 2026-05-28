@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe de Gestión 1.0 | Comfenalco Cartagena</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#1B3B6F',
+                        institucional: '#2E5FA3',
+                        rojo: '#A83D1D',
+                        gris: '#717171',
+                        hueso: '#F5F3F0',
+                    },
+                    fontFamily: {
+                        sans: ['Urbanist', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #F5F3F0; color: #1B3B6F; min-height: 100vh; display: flex; flex-direction: column; }
+        .glass-panel { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); border: 1px solid rgba(27, 59, 111, 0.1); }
+        .input-field { width: 100%; padding: 0.5rem; border: 1px solid rgba(113, 113, 113, 0.3); rounded-radius: 0.375rem; outline: none; transition: all 0.2s; background: #ffffff; }
+        .input-field:focus { border-color: #2E5FA3; box-shadow: 0 0 0 2px rgba(46, 95, 163, 0.2); }
+        .input-disabled { background-color: rgba(113, 113, 113, 0.1); color: rgba(27, 59, 111, 0.6); cursor: not-allowed; opacity: 0.7; }
+        .btn-primary { background-color: #A83D1D; color: white; padding: 0.6rem 1.5rem; font-weight: 700; border-radius: 0.375rem; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.05em; }
+        .btn-primary:hover { background-color: #8c3217; transform: translateY(-1px); }
+        .btn-secondary { background-color: #2E5FA3; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; transition: all 0.2s; }
+        .btn-secondary:hover { background-color: #22477a; }
+        .hidden-screen { display: none !important; }
+        .active-tab { border-left: 4px solid #A83D1D; background: rgba(46, 95, 163, 0.08); color: #ffffff !important; }
+        .sub-tab-active { background-color: #2E5FA3 !important; color: white !important; }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- PÁGINA 1: AUTENTICACIÓN -->
+    <section id="login-screen" class="min-h-screen w-full flex items-center justify-center p-4">
+        <div class="max-w-md w-full glass-panel p-8 rounded-2xl shadow-xl text-center border border-navy/10">
+            <div class="w-full flex justify-center mb-6">
+                <!-- Espacio para Logo corporativo -->
+                 
+                
+ <!--<div class="bg-navy text-white font-black text-xl px-4 py-2 rounded shadow-sm tracking-tight">-->
+                    <!-- COMFENALCO CARTAGENA</span>-->
+                    
+                <!--</div>-->
+               
+            <img src="data:image/png;base64,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" alt="Comfenalco Cartagena"></div>
+    <div class="ht">
+            </div>
+            <h1 class="text-2xl font-extrabold text-navy mb-1 tracking-tight">Informe de Gestión</h1>
+			<h1 class="text-2xl font-extrabold text-navy mb-1 tracking-tight">(Beta 1.0)</h1>
+            <p class="text-gris text-sm mb-6 font-medium">Captura de Información de Servicios Sociales</p>
+            
+            <form onsubmit="handleLogin(event)" class="text-left space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-navy mb-1 tracking-wide">Usuario</label>
+                    <input type="text" id="user" required class="input-field rounded-md" placeholder="Admin">
+                </div>
+                <div class="relative">
+                    <label class="block text-xs font-bold uppercase text-navy mb-1 tracking-wide">Contraseña</label>
+                    <input type="password" id="pass" required class="input-field rounded-md" placeholder="••••••••">
+                    <button type="button" onclick="togglePass()" class="absolute right-3 top-8 text-gris hover:text-navy transition-colors">
+                        <i id="pass-icon" class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+                
+                <!-- CAPTCHA -->
+                <div class="bg-hueso p-3 rounded-lg border border-gris/20 flex items-center justify-between shadow-inner">
+                    <span class="text-xs text-navy font-semibold italic"><i class="fa-solid fa-shield-halved mr-1 text-institucional"></i> Validación: 5 + 3 = ?</span>
+                    <input type="number" id="captcha" required class="w-16 p-1 border border-gris/30 rounded text-center font-bold text-navy">
+                </div>
+
+                <div class="flex items-center justify-between text-xs">
+                    <button type="button" onclick="forgotPassword()" class="text-institucional hover:underline font-semibold">¿Olvidó la contraseña?</button>
+                    <span class="text-gris">Acceso seguro HTTPS</span>
+                </div>
+
+                <button type="submit" class="w-full btn-primary mt-2 rounded-md shadow-md">Autenticar e Ingresar al sistema</button>
+            </form>
+
+            <div class="mt-8 pt-6 border-t border-gris/10">
+                <p class="text-navy font-semibold italic text-xs leading-relaxed">
+                    "En Comfenalco Cartagena, nuestro propósito de valor es la pasión por servir para transformar vidas."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PÁGINA 2: BIENVENIDA Y BIENVENIDA TEMPORAL (SELECCIÓN PERÍODO) -->
+    <section id="chapter-selection" class="hidden-screen min-h-screen w-full p-6 md:p-12 flex flex-col items-center">
+        <div class="max-w-5xl w-full">
+            <header class="flex flex-col sm:flex-row justify-between items-center mb-12 pb-6 border-b border-navy/10 gap-4">
+                <div class="bg-navy text-white font-black text-lg px-4 py-1.5 rounded tracking-tight">
+                    COMFENALCO CARTAGENA</span>
+                </div>
+                <div class="text-center sm:text-right">
+                    <p class="font-bold text-navy text-sm"><i class="fa-solid fa-circle-user text-institucional mr-1"></i> Sesión: <span class="text-institucional">Admin</span></p>
+                    <button onclick="logout()" class="text-xs text-rojo font-bold uppercase tracking-wider hover:underline mt-0.5"><i class="fa-solid fa-power-off mr-1"></i>Cerrar Sesión</button>
+                </div>
+            </header>
+
+            <div class="text-center mb-12 bg-white p-6 rounded-2xl shadow-sm border border-navy/5">
+                <h2 class="text-3xl font-extrabold text-navy tracking-tight mb-2">Bienvenido al Sistema de Gestión</h2>
+                <p class="text-gris text-sm max-w-xl mx-auto mb-6">Seleccione el año y mes de referencia para el cargue y análisis de variables del informe actual.</p>
+                
+                <div class="flex justify-center items-center gap-4 max-w-sm mx-auto bg-hueso p-3 rounded-xl border">
+                    <div class="flex-1">
+                        <label class="block text-[10px] font-bold uppercase text-gris text-left mb-1">Año</label>
+                        <select id="sel-year" class="w-full p-2 border rounded bg-white shadow-sm font-bold text-navy">
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                        </select>
+                    </div>
+                    <div class="flex-1">
+                        <label class="block text-[10px] font-bold uppercase text-gris text-left mb-1">Mes Evaluado</label>
+                        <select id="sel-month" class="w-full p-2 border rounded bg-white shadow-sm font-bold text-navy">
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- CAPÍTULO 1 -->
+                <div onclick="goChapter(1)" class="p-6 bg-white rounded-2xl shadow-md border border-navy/5 hover:border-institucional transition-all cursor-pointer transform hover:-translate-y-1 group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-institucional/10 flex items-center justify-center text-institucional mb-4 group-hover:bg-institucional group-hover:text-white transition-all">
+                            <i class="fa-solid fa-chart-bar text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-navy mb-2 tracking-tight">Análisis de Aportes</h3>
+                        <p class="text-xs text-gris leading-relaxed">Control de recaudos de empresas permanentes, nuevas, vigencias anteriores y cálculo automático de rendimientos del 4%.</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-hueso flex items-center justify-between text-xs font-bold text-institucional">
+                        <span>Ingresar Módulo</span>
+                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+
+                <!-- CAPÍTULO 2 -->
+                <div onclick="goChapter(2)" class="p-6 bg-white rounded-2xl shadow-md border border-navy/5 hover:border-institucional transition-all cursor-pointer transform hover:-translate-y-1 group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-institucional/10 flex items-center justify-center text-institucional mb-4 group-hover:bg-institucional group-hover:text-white transition-all">
+                            <i class="fa-solid fa-users text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-navy mb-2 tracking-tight">Análisis Poblacional y Variables Trazadoras</h3>
+                        <p class="text-xs text-gris leading-relaxed">Segmentación y caracterización exacta de afiliados y personas a cargo por categorías, género, edad y estado civil con análisis cruzados automáticos.</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-hueso flex items-center justify-between text-xs font-bold text-institucional">
+                        <span>Ingresar Módulo</span>
+                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+
+                <!-- CAPÍTULO 3 -->
+                <div onclick="goChapter(3)" class="p-6 bg-white rounded-2xl shadow-md border border-navy/5 hover:border-institucional transition-all cursor-pointer transform hover:-translate-y-1 group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-institucional/10 flex items-center justify-center text-institucional mb-4 group-hover:bg-institucional group-hover:text-white transition-all">
+                            <i class="fa-solid fa-graduation-cap text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-navy mb-2 tracking-tight">Coberturas</h3>
+                        <p class="text-xs text-gris leading-relaxed">Registro detallado de impactos e indicadores sectoriales: Educación, Cedesarrollo, Protección Social, Recreación, Cultura, Crédito y Vivienda.</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-hueso flex items-center justify-between text-xs font-bold text-institucional">
+                        <span>Ingresar Módulo</span>
+                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTÓN DIRECTO AL DASHBOARD GENERAL -->
+            <div class="mt-8 text-center">
+                <button onclick="goChapter(0)" class="text-xs bg-navy text-white px-5 py-2.5 rounded-lg font-bold shadow hover:bg-opacity-95 uppercase tracking-wider"><i class="fa-solid fa-chart-pie mr-2 text-rojo"></i> Ver Módulo de Administración y Estadísticas General</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERFAZ PRINCIPAL CON MENÚ LATERAL IZQUIERDO -->
+    <section id="dashboard" class="hidden-screen flex-grow flex flex-col md:flex-row min-h-screen">
+        <!-- BARRA LATERAL IZQUIERDA -->
+        <aside class="w-full md:w-64 bg-navy text-white flex flex-col shadow-xl z-20">
+            <div class="p-6 border-b border-white/10 flex flex-col items-center">
+                <div class="bg-white text-navy font-black text-md px-3 py-1 rounded shadow-sm tracking-tight mb-2">
+                    COMFENALCO CARTAGENA</span>
+                </div>
+                <p class="text-[10px] text-white/64 uppercase tracking-widest font-bold">Informe Gestión (Beta)</p>
+            </div>
+
+            <!-- MENÚ PRINCIPAL CON ICONOS Y CAPÍTULOS -->
+            <nav class="flex-grow p-4 space-y-1.5 text-xs font-bold uppercase tracking-wider">
+                <button onclick="switchView('admin-metrics')" class="w-full text-left p-3 rounded-lg hover:bg-white/5 flex items-center gap-3 transition-all text-white/80" id="nav-admin">
+                    <i class="fa-solid fa-square-poll-vertical text-sm text-rojo"></i> Administración y Métricas
+                </button>
+                <div class="h-px bg-white/10 my-2"></div>
+                <button onclick="switchView('form-aportes')" class="w-full text-left p-3 rounded-lg hover:bg-white/5 flex items-center gap-3 transition-all text-white/80" id="nav-cap1">
+                    <i class="fa-solid fa-hand-holding-dollar text-sm text-institucional"></i> 1. Análisis de Aportes
+                </button>
+                <button onclick="switchView('form-poblacional')" class="w-full text-left p-3 rounded-lg hover:bg-white/5 flex items-center gap-3 transition-all text-white/80" id="nav-cap2">
+                    <i class="fa-solid fa-users text-sm text-institucional"></i> 2. Análisis Poblacional
+                </button>
+                <button onclick="switchView('form-coberturas')" class="w-full text-left p-3 rounded-lg hover:bg-white/5 flex items-center gap-3 transition-all text-white/80" id="nav-cap3">
+                    <i class="fa-solid fa-shapes text-sm text-institucional"></i> 3. Coberturas
+                </button>
+            </nav>
+
+            <div class="p-4 border-t border-white/10 space-y-2 bg-black/10">
+                <div class="text-center text-[10px] text-white/60">
+                    <i class="fa-solid fa-calendar-days mr-1 text-rojo"></i> Período de Trabajo: <br>
+                    <span id="aside-period-badge" class="font-extrabold text-white text-xs uppercase">Mayo 2024</span>
+                </div>
+                <button onclick="showSelection()" class="w-full text-[10px] bg-institucional/50 py-1.5 rounded font-bold hover:bg-institucional text-center uppercase tracking-wide transition-all"><i class="fa-solid fa-rotate mr-1"></i>Cambiar Período / Volver</button>
+                <button onclick="logout()" class="w-full text-[10px] bg-rojo/30 py-1.5 rounded font-bold hover:bg-rojo text-center uppercase tracking-wide transition-all text-white"><i class="fa-solid fa-right-from-bracket mr-1"></i>Salir</button>
+            </div>
+        </aside>
+
+        <!-- ÁREA CONTENEDORA DE VISTAS DINÁMICAS -->
+        <main class="flex-grow p-4 md:p-8 overflow-y-auto max-w-full">
+            
+            <!-- VISTA: MÓDULO DE ADMINISTRACIÓN -->
+            <div id="view-admin-metrics">
+                <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b gap-4">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-navy tracking-tight">Módulo de Administración y Control</h2>
+                        <p class="text-xs text-gris">Parámetros presupuestales, históricos de años anteriores y tableros estadísticos integrados.</p>
+                    </div>
+                    <span class="bg-navy text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide" id="current-badge-admin">Mayo 2026</span>
+                </header>
+
+                <!-- INDICADORES CLAVE GLOBALES CON VARIACIONES Y CUMPLIMIENTOS -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-navy/5 border-l-4 border-navy flex flex-col justify-between">
+                        <span class="text-[10px] font-bold text-gris uppercase tracking-wider">Presupuesto Mes Evaluado</span>
+                        <h4 class="text-2xl font-black text-navy mt-1">$ 2,450,000,000</h4>
+                        <span class="text-[10px] text-gris mt-2"><i class="fa-solid fa-circle-info mr-1 text-institucional"></i>Meta fijada por Dirección</span>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-navy/5 border-l-4 border-institucional flex flex-col justify-between">
+                        <span class="text-[10px] font-bold text-gris uppercase tracking-wider">Ejecución del Mes</span>
+                        <h4 class="text-2xl font-black text-institucional mt-1" id="admin-exec-val">0</h4>
+                        <span class="text-[10px] text-green-600 mt-2 font-bold"><i class="fa-solid fa-circle-check mr-1"></i>Sincronizado con Formularios</span>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-navy/5 border-l-4 border-green-500 flex flex-col justify-between">
+                        <span class="text-[10px] font-bold text-gris uppercase tracking-wider">% Porcentaje de Cumplimiento</span>
+                        <h4 class="text-2xl font-black text-green-600 mt-1" id="admin-compl-pct">97.81%</h4>
+                        <div class="w-full bg-hueso h-1.5 rounded-full mt-2 overflow-hidden">
+                            <div class="bg-green-500 h-full rounded-full" style="width: 97.81%"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-navy/5 border-l-4 border-rojo flex flex-col justify-between">
+                        <span class="text-[10px] font-bold text-gris uppercase tracking-wider">Variación Ejecución Año Anterior</span>
+                        <h4 class="text-2xl font-black text-navy mt-1" id="admin-var-pct">+ 4.35%</h4>
+                        <span class="text-[10px] text-green-600 font-bold mt-2"><i class="fa-solid fa-arrow-trend-up mr-1"></i>Mayor que mismo mes año anterior</span>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN DE GRÁFICOS ANALÍTICOS DE VALIDACIÓN -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white p-5 rounded-xl shadow-sm border">
+                        <div class="flex justify-between items-center mb-4">
+                            <h5 class="font-extrabold text-xs text-navy uppercase tracking-wider"><i class="fa-solid fa-chart-column mr-1 text-institucional"></i>Validación de Ejecución del Mes vs Presupuesto</h5>
+                            <span class="text-[10px] bg-hueso px-2 py-0.5 rounded text-gris font-bold">Módulos</span>
+                        </div>
+                        <div class="relative h-64">
+                            <canvas id="chartAdminExec"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border">
+                        <div class="flex justify-between items-center mb-4">
+                            <h5 class="font-extrabold text-xs text-navy uppercase tracking-wider"><i class="fa-solid fa-chart-line mr-1 text-rojo"></i>Análisis Estadístico e Histórico (Años Anteriores)</h5>
+                            <span class="text-[10px] bg-navy text-white px-2 py-0.5 rounded font-bold">Recaudos</span>
+                        </div>
+                        <div class="relative h-64">
+                            <canvas id="chartAdminHistorico"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REPOSITORIO DE DATOS HISTÓRICOS Y DE CONTROL (BASE DE DATOS ESTRUCTURADA SIMULADA) -->
+                <div class="bg-white p-5 rounded-xl shadow-sm border">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+                        <div>
+                            <h5 class="font-extrabold text-sm text-navy uppercase tracking-wider">Repositorio Interno de Base de Datos Estructurada Relacional</h5>
+                            <p class="text-[11px] text-gris">Variables parametrizadas del ejercicio actual y consolidación histórica por mes.</p>
+                        </div>
+                        <span class="text-xs bg-green-100 text-green-800 font-bold px-3 py-1 rounded-md"><i class="fa-solid fa-database mr-1"></i>Estado: Conectado</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead>
+                                <tr class="bg-navy text-white uppercase text-[10px] tracking-wider">
+                                    <th class="p-3 rounded-tl-lg">Variable del Informe de Gestión</th>
+                                    <th class="p-3">Presupuesto Mes Actual</th>
+                                    <th class="p-3">Ejecución Mes Actual</th>
+                                    <th class="p-3">Ejecución Año Anterior</th>
+                                    <th class="p-3">% Cumplimiento</th>
+                                    <th class="p-3 rounded-tr-lg">Variación</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y font-medium text-navy">
+                                <tr class="hover:bg-hueso/50">
+                                    <td class="p-3 font-bold">Aportes totales del 4% + Rendimientos financieros</td>
+                                    <td class="p-3 text-gris">$ 550,000,000</td>
+                                    <td class="p-3 text-institucional" id="repo-aportes-ejec">$ 542,000,000</td>
+                                    <td class="p-3 text-gris">$ 520,000,000</td>
+                                    <td class="p-3 font-bold text-green-600" id="repo-aportes-cump">98.5%</td>
+                                    <td class="p-3 font-bold text-green-600">+ 4.2%</td>
+                                </tr>
+                                <tr class="hover:bg-hueso/50">
+                                    <td class="p-3 font-bold">Análisis Poblacional (Subsidios y Cuotas Pagadas)</td>
+                                    <td class="p-3 text-gris">$ 400,000,000</td>
+                                    <td class="p-3 text-institucional">$ 392,250,000</td>
+                                    <td class="p-3 text-gris">$ 375,000,000</td>
+                                    <td class="p-3 font-bold text-green-600">98.1%</td>
+                                    <td class="p-3 font-bold text-green-600">+ 4.6%</td>
+                                </tr>
+                                <tr class="hover:bg-hueso/50">
+                                    <td class="p-3 font-bold">Servicios Sociales Integrados (Coberturas de Servicios)</td>
+                                    <td class="p-3 text-gris">$ 500,000,000</td>
+                                    <td class="p-3 text-institucional">$ 484,000,000</td>
+                                    <td class="p-3 text-gris">$ 464,000,000</td>
+                                    <td class="p-3 font-bold text-green-600">96.8%</td>
+                                    <td class="p-3 font-bold text-green-600">+ 4.3%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA: CAPÍTULO 1 - ANÁLISIS DE APORTES -->
+            <div id="view-form-aportes" class="hidden-screen">
+                <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b gap-4">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-navy tracking-tight">1. Análisis de Aportes</h2>
+                        <p class="text-xs text-gris">Formulario de captura para recaudos mensuales. Los meses anteriores se visualizan de manera tenue (vista de control).</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="downloadTemplate('Aportes')" class="text-xs font-bold text-institucional border border-institucional px-3 py-1.5 rounded-lg bg-white hover:bg-institucional/5 transition-colors"><i class="fa-solid fa-download mr-1"></i> Plantilla Excel</button>
+                        <label class="text-xs font-bold bg-institucional text-white px-3 py-1.5 rounded-lg cursor-pointer hover:bg-opacity-90 transition-all flex items-center shadow-sm">
+                            <i class="fa-solid fa-file-excel mr-1"></i> Importar Excel <input type="file" class="hidden" accept=".xlsx, .xls" onchange="simulateExcelUpload('Aportes')">
+                        </label>
+                    </div>
+                </header>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- FORMULARIO DE CAPTURA DEL MES ACTUAL -->
+                    <div class="lg:col-span-2 space-y-4">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border space-y-4">
+                            <h3 class="font-extrabold text-xs uppercase text-navy border-b pb-2 tracking-wide"><i class="fa-solid fa-pen-to-square mr-1 text-institucional"></i>Formulario de Registro - Mes Actual Seleccionado</h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-gris mb-1">Aportes de empresas permanentes</label>
+                                    <input type="number" id="inp-perm" class="input-field cap1-trigger font-bold text-navy text-right" value="">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-gris mb-1">Aportes de empresas nuevas</label>
+                                    <input type="number" id="inp-nuevas" class="input-field cap1-trigger font-bold text-navy text-right" value="">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-gris mb-1">Aportes de vigencias anteriores</label>
+                                    <input type="number" id="inp-ant" class="input-field cap1-trigger font-bold text-navy text-right" value="">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-gris mb-1">Rendimientos financieros</label>
+                                    <input type="number" id="inp-rend" class="input-field cap1-trigger font-bold text-navy text-right" value="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- REVISIÓN HISTÓRICA COMPLETA DE ENERO A DICIEMBRE (VALORES TENUES) -->
+                        <div class="bg-white p-5 rounded-xl shadow-sm border">
+                            <h3 class="font-extrabold text-xs uppercase text-navy border-b pb-2 mb-3 tracking-wide"><i class="fa-solid fa-clock-rotate-left mr-1 text-gris"></i>Control Anual del Ejercicio (Datos Tenues de Consulta)</h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                <div class="bg-hueso/50 p-2 rounded border border-gris/10 text-center opacity-50"><p class="text-[9px] uppercase font-bold text-gris">Enero</p><p class="text-xs font-bold text-navy">$ 510M</p></div>
+                                <div class="bg-hueso/50 p-2 rounded border border-gris/10 text-center opacity-50"><p class="text-[9px] uppercase font-bold text-gris">Febrero</p><p class="text-xs font-bold text-navy">$ 525M</p></div>
+                                <div class="bg-hueso/50 p-2 rounded border border-gris/10 text-center opacity-50"><p class="text-[9px] uppercase font-bold text-gris">Marzo</p><p class="text-xs font-bold text-navy">$ 495M</p></div>
+                                <div class="bg-hueso/50 p-2 rounded border border-gris/10 text-center opacity-50"><p class="text-[9px] uppercase font-bold text-gris">Abril</p><p class="text-xs font-bold text-navy">$ 530M</p></div>
+                                <div class="bg-institucional/5 p-2 rounded border border-institucional/30 text-center"><p class="text-[9px] uppercase font-bold text-institucional">Mayo (Actual)</p><p class="text-xs font-black text-navy" id="grid-mayo-val">$ 542M</p></div>
+                                <div class="bg-hueso/30 p-2 rounded border border-dashed text-center opacity-40"><p class="text-[9px] uppercase font-bold text-gris">Junio</p><p class="text-xs font-bold text-navy">$ 0</p></div>
+                                <div class="bg-hueso/30 p-2 rounded border border-dashed text-center opacity-40"><p class="text-[9px] uppercase font-bold text-gris">Julio</p><p class="text-xs font-bold text-navy">$ 0</p></div>
+                                <div class="bg-hueso/30 p-2 rounded border border-dashed text-center opacity-40"><p class="text-[9px] uppercase font-bold text-gris">Agosto</p><p class="text-xs font-bold text-navy">$ 0</p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANELES DE CAMPOS CALCULADOS DE MANERA AUTOMÁTICA -->
+                    <div class="space-y-4">
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-l-4 border-rojo">
+                            <p class="text-[10px] font-bold text-gris uppercase tracking-wider">Aportes totales del 4%</p>
+                            <h4 class="text-2xl font-black text-navy mt-1" id="calc-aportes-4-val"></h4>
+                            <p class="text-[9px] text-gris italic mt-1">Suma: Permanentes + Nuevas + Vig. Anteriores</p>
+                        </div>
+
+                        <div class="bg-navy p-6 rounded-xl shadow-md text-white border-l-4 border-institucional">
+                            <p class="text-[10px] font-bold text-white/70 uppercase tracking-wider">Aportes totales del 4% + Rendimientos financieros</p>
+                            <h4 class="text-3xl font-black mt-1" id="calc-aportes-total-final"></h4>
+                            <p class="text-[9px] text-white/60 italic mt-2">Esta variable se heredará automáticamente como trazadora en el capítulo poblacional.</p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border space-y-2">
+                            <button onclick="previewForm('Aportes')" class="w-full text-center py-2 border border-navy text-navy font-bold rounded-lg text-xs uppercase hover:bg-navy/5 transition-all">Previsualizar Formulario</button>
+                            <button onclick="submitForm('Aportes')" class="w-full btn-primary text-xs rounded-lg text-center font-bold">Enviar Formulario Seguro</button>
+                            <div class="pt-2 flex justify-center">
+                                <button onclick="requestReupload('Aportes')" class="text-[11px] text-rojo font-bold uppercase hover:underline"><i class="fa-solid fa-code-pull-request mr-1"></i> Solicitar Reenvío a Coordinación</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VISTA: CAPÍTULO 2 - ANÁLISIS POBLACIONAL Y TRAZADORAS -->
+            <div id="view-form-poblacional" class="hidden-screen">
+                <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b gap-4">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-navy tracking-tight">2. Análisis Poblacional y Variables Trazadoras</h2>
+                        <p class="text-xs text-gris">Validación estricta de coherencia demográfica mediante análisis cruzados automáticos.</p>
+                    </div>
+                    <div id="cross-validation-badge" class="px-3 py-1.5 bg-green-100 text-green-800 rounded-lg text-xs font-bold shadow-sm border border-green-200">
+                        <i class="fa-solid fa-square-check mr-1"></i> Análisis Cruzado Correcto
+                    </div>
+                </header>
+
+                <!-- VARIABLES DE CONTROL GENERAL -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-navy/5 p-4 rounded-xl border flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] font-bold text-gris uppercase">Aportes 4% (Variable Heredada)</p>
+                            <span class="text-lg font-extrabold text-navy" id="poblacional-trazadora-val"></span>
+                        </div>
+                        <i class="fa-solid fa-link text-institucional text-md"></i>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-gris mb-1">Trabajadores Activos Ejercicio (Control Total)</label>
+                        <input type="number" id="inp-total-trabajadores" oninput="runCrossValidation()" class="input-field font-black text-navy text-right" value="">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase text-gris mb-1">Empresas Activas en el Ejercicio</label>
+                        <input type="number" class="input-field font-bold text-navy text-right" value="">
+                    </div>
+                </div>
+
+                <!-- SUB-SECCIONES DINÁMICAS (AFILIADOS VS PERSONAS A CARGO) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    
+                    <!-- BLOQUE: AFILIADOS -->
+                    <div class="bg-white p-5 rounded-xl shadow-sm border space-y-4">
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <h3 class="font-extrabold text-xs uppercase text-institucional"><i class="fa-solid fa-id-card mr-1"></i>Análisis Poblacional de Afiliados</h3>
+                            <span class="text-[10px] bg-hueso text-navy px-2 py-0.5 rounded font-black" id="badge-total-sum-afiliados">Suma: </span>
+                        </div>
+
+                        <!-- CATEGORÍAS -->
+                        <div class="space-y-2">
+                            <p class="text-[10px] font-extrabold text-navy uppercase tracking-wide">Distribución por Categorías</p>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div><label class="text-[9px] text-gris uppercase font-bold">Cat. A</label><input type="number" id="af-catA" oninput="runCrossValidation()" class="input-field text-right text-xs font-bold" value=""></div>
+                                <div><label class="text-[9px] text-gris uppercase font-bold">Cat. B</label><input type="number" id="af-catB" oninput="runCrossValidation()" class="input-field text-right text-xs font-bold" value=""></div>
+                                <div><label class="text-[9px] text-gris uppercase font-bold">Cat. C</label><input type="number" id="af-catC" oninput="runCrossValidation()" class="input-field text-right text-xs font-bold" value=""></div>
+                            </div>
+                        </div>
+
+                        <!-- GÉNEROS -->
+                        <div class="space-y-2 pt-2 border-t border-dashed">
+                            <p class="text-[10px] font-extrabold text-navy uppercase tracking-wide">Distribución por Género</p>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div><label class="text-[9px] text-gris uppercase font-bold">Hombre</label><input type="number" id="af-genH" oninput="runCrossValidation()" class="input-field text-right text-xs font-bold" value=""></div>
+                                <div><label class="text-[9px] text-gris uppercase font-bold">Mujer</label><input type="number" id="af-genM" oninput="runCrossValidation()" class="input-field text-right text-xs font-bold" value=""></div>
+                                <div><label class="text-[9px] text-gris uppercase font-bold">Indefinido</label><input type="number" id="af-genI" oninput="runCrossValidation()" class="input-field text-right text-xs font-bold" value=""></div>
+                            </div>
+                        </div>
+
+                        <!-- ESTADO CIVIL -->
+                        <div class="space-y-2 pt-2 border-t border-dashed">
+                            <p class="text-[10px] font-extrabold text-navy uppercase tracking-wide">Segmentación por Estado Civil</p>
+                            <div class="grid grid-cols-5 gap-1.5">
+                                <div><label class="text-[9px] text-gris font-bold">Soltero</label><input type="number" id="af-ecSol" oninput="runCrossValidation()" class="input-field text-right text-[11px] p-1 font-bold" value=""></div>
+                                <div><label class="text-[9px] text-gris font-bold">U. Libre</label><input type="number" id="af-ecUni" oninput="runCrossValidation()" class="input-field text-right text-[11px] p-1 font-bold" value=""></div>
+                                <div><label class="text-[9px] text-gris font-bold">Casado</label><input type="number" id="af-ecCas" oninput="runCrossValidation()" class="input-field text-right text-[11px] p-1 font-bold" value=""></div>
+                                <div><label class="text-[9px] text-gris font-bold">Separ.</label><input type="number" id="af-ecSep" oninput="runCrossValidation()" class="input-field text-right text-[11px] p-1 font-bold" value=""></div>
+                                <div><label class="text-[9px] text-gris font-bold">Viudo</label><input type="number" id="af-ecViu" oninput="runCrossValidation()" class="input-field text-right text-[11px] p-1 font-bold" value=""></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BLOQUE: PERSONAS A CARGO -->
+                    <div class="bg-white p-5 rounded-xl shadow-sm border space-y-4">
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <h3 class="font-extrabold text-xs uppercase text-institucional"><i class="fa-solid fa-children mr-1"></i>Análisis Poblacional de Personas a Cargo</h3>
+                            <span class="text-[10px] bg-hueso text-navy px-2 py-0.5 rounded font-black" id="badge-total-sum-beneficiarios">Suma: </span>
+                        </div>
+
+                        <!-- CATEGORÍAS -->
+                        <div class="space-y-2">
+                            <p class="text-[10px] font-extrabold text-navy uppercase tracking-wide">Beneficiarios por Categorías</p>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div><label class="text-[9px] text-gris uppercase font-bold">Cat. A</label><input type="number" id="ben-catA" oninput="runCrossValidation()" class="input-field text-right text-xs font-bold" value=""></div>
+                                <div><label class="text-[9px] text-gris uppercase font-bold">Cat. B</label><input type="number" id="ben-catB" oninput="runCrossValidation()" class="input-field text-right text-xs font-bold" value=""></div>
+                                <div><label class="text-[9px] text-gris uppercase font-bold">Cat. C</label><input type="number" id="ben-catC" oninput="runCrossValidation()" class="input-field text-right text-xs font-bold" value=""></div>
+                            </div>
+                        </div>
+
+                        <!-- GÉNEROS -->
+                        <div class="space-y-2 pt-2 border-t border-dashed">
+                            <p class="text-[10px] font-extrabold text-navy uppercase tracking-wide">Beneficiarios por Género</p>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div><label class="text-[9px] text-gris uppercase font-bold">Hombre</label><input type="number" id="ben-genH" oninput="runCrossValidation()" class="input-field text-right text-xs font-bold" value=""></div>
+                                <div><label class="text-[9px] text-gris uppercase font-bold">Mujer</label><input type="number" id="ben-genM" oninput="runCrossValidation()" class="input-field text-right text-xs font-bold" value=""></div>
+                                <div><label class="text-[9px] text-gris uppercase font-bold">Indefinido</label><input type="number" id="ben-genI" oninput="runCrossValidation()" class="input-field text-right text-xs font-bold" value=""></div>
+                            </div>
+                        </div>
+
+                        <!-- PARENTESCO -->
+                        <div class="space-y-1.5 pt-2 border-t border-dashed">
+                            <p class="text-[10px] font-extrabold text-navy uppercase tracking-wide">Distribución por Parentesco</p>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div><label class="text-[9px] text-gris font-bold">Hijos</label><input type="number" class="input-field p-1 text-xs text-right" value=""></div>
+                                <div><label class="text-[9px] text-gris font-bold">Conyugues</label><input type="number" class="input-field p-1 text-xs text-right" value=""></div>
+                                <div><label class="text-[9px] text-gris font-bold">Padres</label><input type="number" class="input-field p-1 text-xs text-right" value=""></div>
+								<div><label class="text-[9px] text-gris font-bold">Hijastro</label><input type="number" class="input-field p-1 text-xs text-right" value=""></div>
+								<div><label class="text-[9px] text-gris font-bold">Hermano</label><input type="number" class="input-field p-1 text-xs text-right" value=""></div>
+								<div><label class="text-[9px] text-gris font-bold">Dependiente por custodia legal</label><input type="number" class="input-field p-1 text-xs text-right" value=""></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-end gap-3 bg-white p-4 rounded-xl border">
+                    <button onclick="previewForm('Poblacional')" class="px-4 py-2 border rounded-lg text-xs font-bold uppercase text-navy">Previsualizar</button>
+                    <button onclick="submitForm('Poblacional')" class="btn-primary text-xs rounded-lg">Confirmar e Guardar Repositorio</button>
+                </div>
+            </div>
+
+            <!-- VISTA: CAPÍTULO 3 - COBERTURAS -->
+            <div id="view-form-coberturas" class="hidden-screen">
+                <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b gap-4">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-navy tracking-tight">3. Coberturas de Servicios Sociales</h2>
+                        <p class="text-xs text-gris">Matriz sectorizada por líneas y sub-servicios corporativos de Comfenalco.</p>
+                    </div>
+                </header>
+
+                <!-- PESTAÑAS INTERNAS DE SERVICIOS SOCIALES (3.1 A 3.10) -->
+                <div class="flex gap-1.5 overflow-x-auto pb-2 mb-6 border-b text-[11px] font-bold uppercase tracking-wide">
+                    <button id="subtab-31" onclick="switchSubTab('31')" class="sub-tab-active px-3 py-2 bg-white rounded-t-lg border-t border-x text-navy whitespace-nowrap">3.1 Educación Formal</button>
+                    <button id="subtab-32" onclick="switchSubTab('32')" class="px-3 py-2 bg-white/50 rounded-t-lg border-t border-x text-gris whitespace-nowrap">3.2 Cedesarrollo Técnicas</button>
+                    <button id="subtab-34" onclick="switchSubTab('34')" class="px-3 py-2 bg-white/50 rounded-t-lg border-t border-x text-gris whitespace-nowrap">3.3 Protección Social</button>
+                    <button id="subtab-35" onclick="switchSubTab('35')" class="px-3 py-2 bg-white/50 rounded-t-lg border-t border-x text-gris whitespace-nowrap">3.4 Recreación y Turismo</button>
+					<button id="subtab-36" onclick="switchSubTab('36')" class="px-3 py-2 bg-white/50 rounded-t-lg border-t border-x text-gris whitespace-nowrap">3.5 Deportes</button>
+					<button id="subtab-36" onclick="switchSubTab('37')" class="px-3 py-2 bg-white/50 rounded-t-lg border-t border-x text-gris whitespace-nowrap">3.6 Cultura</button>
+                    <button id="subtab-38" onclick="switchSubTab('38')" class="px-3 py-2 bg-white/50 rounded-t-lg border-t border-x text-gris whitespace-nowrap">3.8 Crédito Social</button>
+					<button id="subtab-38" onclick="switchSubTab('39')" class="px-3 py-2 bg-white/50 rounded-t-lg border-t border-x text-gris whitespace-nowrap">3.9 Fomento al empleo FOSFEC</button>
+					<button id="subtab-38" onclick="switchSubTab('40')" class="px-3 py-2 bg-white/50 rounded-t-lg border-t border-x text-gris whitespace-nowrap">3.10 Vivienda</button>
+                </div>
+
+                <!-- CONTENIDOS ESPECÍFICOS DE LAS SUB-PESTAÑAS -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border">
+                    
+                    <!-- 3.1 EDUCACIÓN FORMAL -->
+                    <div id="subtab-content-31" class="space-y-6">
+                        <div class="flex justify-between items-center bg-hueso p-3 rounded-lg">
+                            <span class="text-xs font-bold text-navy uppercase"><i class="fa-solid fa-graduation-cap mr-1 text-institucional"></i> 3.1 Indicadores de Educación Formal</span>
+                            <span class="text-xs bg-navy text-white px-3 py-0.5 rounded-full font-black" id="calc-total-estudiantes">Total Estudiantes: </span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-3">
+                                <p class="text-xs font-bold text-navy uppercase border-b pb-1">Distribución por Categorías</p>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div><label class="text-[10px] text-gris font-bold">Estudiantes Cat. A</label><input type="number" class="input-field text-right font-bold text-sm" value=""></div>
+                                    <div><label class="text-[10px] text-gris font-bold">Estudiantes Cat. B</label><input type="number" class="input-field text-right font-bold text-sm" value=""></div>
+                                    <div><label class="text-[10px] text-gris font-bold">Estudiantes Cat. C</label><input type="number" class="input-field text-right font-bold text-sm" value=""></div>
+                                    <div><label class="text-[10px] text-gris font-bold">Estudiantes Cat. D</label><input type="number" class="input-field text-right font-bold text-sm" value=""></div>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <p class="text-xs font-bold text-navy uppercase border-b pb-1">Distribución por Nivel Académico</p>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between items-center"><span class="text-xs text-gris">Estudiantes en preescolar</span><input type="number" class="w-32 input-field text-right text-xs" value=""></div>
+                                    <div class="flex justify-between items-center"><span class="text-xs text-gris">Estudiantes en primaria</span><input type="number" class="w-32 input-field text-right text-xs" value=""></div>
+                                    <div class="flex justify-between items-center"><span class="text-xs text-gris">Estudiantes en básica secundaria</span><input type="number" class="w-32 input-field text-right text-xs" value=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3.2 CEDESARROLLO -->
+                    <div id="subtab-content-32" class="hidden-screen space-y-4">
+                        <p class="text-xs font-bold text-navy uppercase border-b pb-1">3.2 Cedesarrollo - Carreras Técnicas y Educación Continuada</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="text-[11px] text-gris font-bold block">Estudiantes en carreras técnicas</label>
+                                <input type="number" class="input-field text-right" value="1450">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[11px] text-gris font-bold block">Estudiantes en Macrocertificaciones</label>
+                                <input type="number" class="input-field text-right" value="380">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3.4 PROTECCIÓN SOCIAL -->
+                    <div id="subtab-content-34" class="hidden-screen space-y-4">
+                        <p class="text-xs font-bold text-navy uppercase border-b pb-1">3.4 Protección Social: Discapacidad - Adulto Mayor - AIPI - JEC</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-3 bg-hueso rounded-lg">
+                                <span class="text-xs font-bold text-navy block mb-2">Modalidad - JEC (Jornada Escolar Complementaria)</span>
+                                <div class="space-y-1 text-xs">
+                                    <div class="flex justify-between"><span>Ciencia y tecnología</span><input type="number" class="w-20 p-0.5 border rounded text-right" value="320"></div>
+                                    <div class="flex justify-between"><span>Lectura, escritura y oralidad</span><input type="number" class="w-20 p-0.5 border rounded text-right" value="410"></div>
+                                    <div class="flex justify-between"><span>Educación ambiental</span><input type="number" class="w-20 p-0.5 border rounded text-right" value="280"></div>
+                                </div>
+                            </div>
+                            <div class="p-3 bg-hueso rounded-lg">
+                                <span class="text-xs font-bold text-navy block mb-2">Atención Integral a la Primera Infancia (AIPI)</span>
+                                <div class="flex justify-between items-center text-xs">
+                                    <span>Personas atendidas en municipios – AIPI</span>
+                                    <input type="number" class="w-24 p-1 border rounded text-right" value="1250">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3.5 RECREACIÓN Y TURISMO -->
+                    <div id="subtab-content-35" class="hidden-screen space-y-4">
+                        <p class="text-xs font-bold text-navy uppercase border-b pb-1">3.5 Recreación, Turismo y Deporte (Usos en Sedes Corporativas)</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <div class="p-2 border rounded text-center"><span class="text-[10px] uppercase font-bold block text-gris">Takurika</span><input type="number" class="w-full text-center font-bold text-navy border-none outline-none mt-1" value="18450"></div>
+                            <div class="p-2 border rounded text-center"><span class="text-[10px] uppercase font-bold block text-gris">Jardín Botánico</span><input type="number" class="w-full text-center font-bold text-navy border-none outline-none mt-1" value="6200"></div>
+                            <div class="p-2 border rounded text-center"><span class="text-[10px] uppercase font-bold block text-gris">Magangué</span><input type="number" class="w-full text-center font-bold text-navy border-none outline-none mt-1" value="1150"></div>
+                            <div class="p-2 border rounded text-center"><span class="text-[10px] uppercase font-bold block text-gris">Centro Empresarial</span><input type="number" class="w-full text-center font-bold text-navy border-none outline-none mt-1" value="3400"></div>
+                        </div>
+                    </div>
+
+                    <!-- 3.8 CRÉDITO SOCIAL -->
+                    <div id="subtab-content-38" class="hidden-screen space-y-4">
+                        <p class="text-xs font-bold text-navy uppercase border-b pb-1">3.8 Saldos de Cartera y Desembolsos por Líneas</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <div class="p-3 border rounded-lg">
+                                <span class="font-bold text-navy block mb-2 uppercase text-[10px]">Saldos por Edad de Cartera</span>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between"><span>No vencida (0)</span><input type="number" class="w-24 p-0.5 border rounded text-right" value="450000000"></div>
+                                    <div class="flex justify-between"><span>De 1 a 30 días</span><input type="number" class="w-24 p-0.5 border rounded text-right" value="35000000"></div>
+                                    <div class="flex justify-between"><span>Mas de 180 días</span><input type="number" class="w-24 p-0.5 border rounded text-right" value="12000000"></div>
+                                </div>
+                            </div>
+                            <div class="p-3 border rounded-lg">
+                                <span class="font-bold text-navy block mb-2 uppercase text-[10px]">Líneas de Crédito (Pesos)</span>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between"><span>Libranza</span><input type="number" class="w-24 p-0.5 border rounded text-right" value="850000000"></div>
+                                    <div class="flex justify-between"><span>Cupocrédito</span><input type="number" class="w-24 p-0.5 border rounded text-right" value="140000000"></div>
+                                    <div class="flex justify-between"><span>Mercaexpress</span><input type="number" class="w-24 p-0.5 border rounded text-right" value="65000000"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-6 flex justify-between items-center bg-white p-4 rounded-xl border">
+                    <span class="text-xs text-gris italic"><i class="fa-solid fa-cloud-arrow-up mr-1 text-institucional"></i> Los cambios de sub-pestañas se consolidan en el envío final.</span>
+                    <button onclick="submitForm('Coberturas')" class="btn-primary text-xs rounded-lg">Enviar Coberturas Completas</button>
+                </div>
+            </div>
+
+        </main>
+    </section>
+
+    <!-- VENTANA MODAL: PREVISUALIZACIÓN ANTES DEL ENVÍO -->
+    <div id="modal-preview" class="hidden-screen fixed inset-0 bg-navy/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 relative border border-navy/10">
+            <button onclick="closeModal()" class="absolute right-4 top-4 text-gris hover:text-rojo transition-colors"><i class="fa-solid fa-xmark text-lg"></i></button>
+            
+            <div class="flex items-center gap-2 text-navy mb-4 border-b pb-2">
+                <i class="fa-solid fa-magnifying-glass-chart text-xl text-institucional"></i>
+                <h3 class="text-xl font-extrabold tracking-tight">Previsualización de Estructura de Datos</h3>
+            </div>
+            
+            <div id="preview-content" class="space-y-3 text-xs text-navy bg-hueso p-4 rounded-xl border max-h-96 overflow-y-auto font-medium">
+                <!-- Se inyecta dinámicamente -->
+            </div>
+            
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeModal()" class="flex-1 py-2.5 border border-gris/40 rounded-lg font-bold text-xs uppercase text-gris hover:bg-hueso transition-all">Modificar / Corregir</button>
+                <button onclick="confirmSubmit()" class="flex-1 btn-primary text-xs rounded-lg shadow-md">Confirmar y Enviar Base de Datos</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE COMPORTAMIENTO UX/UI COMPLETO -->
+    <script>
+        // ESTADO INTERNO DEL FRONTEND
+        const dashboardState = {
+            activeView: 'admin-metrics',
+            activeSubTab: '31',
+            selectedMonth: 'Mayo',
+            selectedYear: '2026',
+            charts: {}
+        };
+
+        // ENRUTADOR DE VISTAS (SPA)
+        function showScreen(screenId) {
+            document.getElementById('login-screen').classList.add('hidden-screen');
+            document.getElementById('chapter-selection').classList.add('hidden-screen');
+            document.getElementById('dashboard').classList.add('hidden-screen');
+            
+            document.getElementById(screenId).classList.remove('hidden-screen');
+        }
+
+        // CONTROL DE ACCESO (ADMIN/ADMIN) + CAPTCHA
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('user').value.trim();
+            const p = document.getElementById('pass').value.trim();
+            const c = document.getElementById('captcha').value;
+
+            if (u.toLowerCase() === 'admin' && p.toLowerCase() === 'admin' && c === '8') {
+                showScreen('chapter-selection');
+            } else {
+                alert('⚠️ Credenciales incorrectas o validación matemática errónea. Intente de nuevo.');
+            }
+        }
+
+        function togglePass() {
+            const field = document.getElementById('pass');
+            const icon = document.getElementById('pass-icon');
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        function forgotPassword() {
+            alert('ℹ️ Se ha enviado un enlace de restauración al correo registrado para este colaborador corporativo.');
+        }
+
+        function logout() {
+            showScreen('login-screen');
+            document.getElementById('pass').value = '';
+            document.getElementById('captcha').value = '';
+        }
+
+        // CONFIGURACIÓN DE PERÍODO Y APERTURA DE CAPÍTULOS
+        function goChapter(chapNum) {
+            const monthMap = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            const monthIdx = document.getElementById('sel-month').value;
+            
+            dashboardState.selectedMonth = monthMap[monthIdx - 1];
+            dashboardState.selectedYear = document.getElementById('sel-year').value;
+            
+            // Sincronizar textos en la UI
+            const txt = `${dashboardState.selectedMonth} ${dashboardState.selectedYear}`;
+            document.getElementById('aside-period-badge').innerText = txt;
+            document.getElementById('current-badge-admin').innerText = txt;
+            document.getElementById('grid-mayo-val').innerText = `$ 542M (${dashboardState.selectedMonth})`;
+            
+            showScreen('dashboard');
+            
+            // Redirección directa al menú correspondiente
+            if (chapNum === 1) switchView('form-aportes');
+            else if (chapNum === 2) switchView('form-poblacional');
+            else if (chapNum === 3) switchView('form-coberturas');
+            else switchView('admin-metrics');
+
+            // Renderizado diferido de componentes analíticos
+            setTimeout(renderAnalyticsCharts, 150);
+        }
+
+        // CAMBIO DE NAVEGACIÓN EN MENÚ LATERAL
+        function switchView(viewName) {
+            dashboardState.activeView = viewName;
+            
+            // Ocultar todas las sub-vistas del dashboard
+            document.getElementById('view-admin-metrics').classList.add('hidden-screen');
+            document.getElementById('view-form-aportes').classList.add('hidden-screen');
+            document.getElementById('view-form-poblacional').classList.add('hidden-screen');
+            document.getElementById('view-form-coberturas').classList.add('hidden-screen');
+            
+            // Mostrar la seleccionada
+            document.getElementById(`view-${viewName}`).classList.remove('hidden-screen');
+            
+            // Actualizar clases CSS del elemento del menú activo
+            document.getElementById('nav-admin').classList.remove('active-tab');
+            document.getElementById('nav-cap1').classList.remove('active-tab');
+            document.getElementById('nav-cap2').classList.remove('active-tab');
+            document.getElementById('nav-cap3').classList.remove('active-tab');
+            
+            const btnMap = {
+                'admin-metrics': 'nav-admin',
+                'form-aportes': 'nav-cap1',
+                'form-poblacional': 'nav-cap2',
+                'form-coberturas': 'nav-cap3'
+            };
+            document.getElementById(btnMap[viewName]).classList.add('active-tab');
+        }
+
+        function showSelection() {
+            showScreen('chapter-selection');
+        }
+
+        // NAVEGACIÓN SUB-PESTAÑAS CAPÍTULO 3
+        function switchSubTab(tabId) {
+            dashboardState.activeSubTab = tabId;
+            
+            // Ocultar contenidos
+            document.getElementById('subtab-content-31').classList.add('hidden-screen');
+            document.getElementById('subtab-content-32').classList.add('hidden-screen');
+            document.getElementById('subtab-content-34').classList.add('hidden-screen');
+            document.getElementById('subtab-content-35').classList.add('hidden-screen');
+            document.getElementById('subtab-content-38').classList.add('hidden-screen');
+            
+            document.getElementById(`subtab-content-${tabId}`).classList.remove('hidden-screen');
+            
+            // Estilos botones
+            document.getElementById('subtab-31').className = "px-3 py-2 bg-white/50 rounded-t-lg text-gris whitespace-nowrap";
+            document.getElementById('subtab-32').className = "px-3 py-2 bg-white/50 rounded-t-lg text-gris whitespace-nowrap";
+            document.getElementById('subtab-34').className = "px-3 py-2 bg-white/50 rounded-t-lg text-gris whitespace-nowrap";
+            document.getElementById('subtab-35').className = "px-3 py-2 bg-white/50 rounded-t-lg text-gris whitespace-nowrap";
+            document.getElementById('subtab-38').className = "px-3 py-2 bg-white/50 rounded-t-lg text-gris whitespace-nowrap";
+            
+            document.getElementById(`subtab-${tabId}`).className = "sub-tab-active px-3 py-2 bg-white rounded-t-lg border-t border-x text-navy font-bold whitespace-nowrap";
+        }
+
+        // LÓGICA CAPÍTULO 1 Y MATRIZ DE CÁLCULO DE RECAUDOS
+        document.querySelectorAll('.cap1-trigger').forEach(input => {
+            input.addEventListener('input', () => {
+                const p = parseFloat(document.getElementById('inp-perm').value) || 0;
+                const n = parseFloat(document.getElementById('inp-nuevas').value) || 0;
+                const a = parseFloat(document.getElementById('inp-ant').value) || 0;
+                const r = parseFloat(document.getElementById('inp-rend').value) || 0;
+
+                const total4 = p + n + a;
+                const totalFinal = total4 + r;
+
+                document.getElementById('calc-aportes-4-val').innerText = `$ ${total4.toLocaleString()}`;
+                document.getElementById('calc-aportes-total-final').innerText = `$ ${totalFinal.toLocaleString()}`;
+                document.getElementById('poblacional-trazadora-val').innerText = `$ ${totalFinal.toLocaleString()}`;
+                document.getElementById('repo-aportes-ejec').innerText = `$ ${totalFinal.toLocaleString()}`;
+            });
+        });
+
+        // VALIDACIÓN DE MATRICES POBLACIONALES (ANÁLISIS CRUZADOS)
+        function runCrossValidation() {
+            const totalTarget = parseFloat(document.getElementById('inp-total-trabajadores').value) || 0;
+            
+            // Sumas de secciones de Afiliados
+            const cA = parseFloat(document.getElementById('af-catA').value) || 0;
+            const cB = parseFloat(document.getElementById('af-catB').value) || 0;
+            const cC = parseFloat(document.getElementById('af-catC').value) || 0;
+            const sumCategorias = cA + cB + cC;
+            document.getElementById('badge-total-sum-afiliados').innerText = `Suma: ${sumCategorias.toLocaleString()}`;
+
+            const gH = parseFloat(document.getElementById('af-genH').value) || 0;
+            const gM = parseFloat(document.getElementById('af-genM').value) || 0;
+            const gI = parseFloat(document.getElementById('af-genI').value) || 0;
+            const sumGeneros = gH + gM + gI;
+
+            const esS = parseFloat(document.getElementById('af-ecSol').value) || 0;
+            const esU = parseFloat(document.getElementById('af-ecUni').value) || 0;
+            const esC = parseFloat(document.getElementById('af-ecCas').value) || 0;
+            const esP = parseFloat(document.getElementById('af-ecSep').value) || 0;
+            const esV = parseFloat(document.getElementById('af-ecViu').value) || 0;
+            const sumEstadoCivil = esS + esU + esC + esP + esV;
+
+            const badge = document.getElementById('cross-validation-badge');
+
+            // Cruce lógico estadístico
+            if (sumCategorias === totalTarget && sumGeneros === totalTarget && sumEstadoCivil === totalTarget) {
+                badge.innerHTML = '<i class="fa-solid fa-square-check mr-1"></i> Análisis Cruzado Correcto';
+                badge.className = "px-3 py-1.5 bg-green-100 text-green-800 rounded-lg text-xs font-bold shadow-sm border border-green-200";
+            } else {
+                badge.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Error de Coherencia: Actualizar Información';
+                badge.className = "px-3 py-1.5 bg-rojo text-white rounded-lg text-xs font-bold shadow-sm animate-pulse";
+            }
+        }
+
+        // ACCIONES DE ADM DE FORMULARIOS
+        function downloadTemplate(capName) {
+            alert(`📥 Descargando plantilla estructurada oficial en formato Excel para: Capítulo ${capName}.xlsx`);
+        }
+
+        function simulateExcelUpload(capName) {
+            alert(`🚀 Archivo detectado correctamente. Procesando celdas de matriz relacional e indexando variables en el formulario actual.`);
+        }
+
+        function requestReupload(capName) {
+            const razon = prompt("Escriba la justificación para solicitar la habilitación de reenvío a la Coordinación de Analítica y Estadística:");
+            if (razon) {
+                alert("📩 Solicitud de reenvío enviada con éxito. Una vez aprobada por la coordinación, recibirá la confirmación para actualizar el formulario.");
+            }
+        }
+
+        // GESTIÓN DEL MODAL DE PREVISUALIZACIÓN
+        function previewForm(capName) {
+            const content = document.getElementById('preview-content');
+            if (capName === 'Aportes') {
+                content.innerHTML = `
+                    <p class="border-b pb-1 text-xs font-bold text-institucional uppercase">Resumen Capítulo 1: Aportes</p>
+                    <p><b>Período:</b> ${dashboardState.selectedMonth} ${dashboardState.selectedYear}</p>
+                    <p><b>Empresas Permanentes:</b> $ ${parseFloat(document.getElementById('inp-perm').value || 0).toLocaleString()}</p>
+                    <p><b>Empresas Nuevas:</b> $ ${parseFloat(document.getElementById('inp-nuevas').value || 0).toLocaleString()}</p>
+                    <p><b>Vigencias Anteriores:</b> $ ${parseFloat(document.getElementById('inp-ant').value || 0).toLocaleString()}</p>
+                    <p class="text-rojo"><b>Aportes Totales del 4%:</b> ${document.getElementById('calc-aportes-4-val').innerText}</p>
+                    <p class="bg-navy text-white p-2 rounded mt-2 text-center"><b>Total Con Rendimientos:</b> ${document.getElementById('calc-aportes-total-final').innerText}</p>
+                `;
+            } else {
+                content.innerHTML = `
+                    <p class="border-b pb-1 text-xs font-bold text-institucional uppercase">Resumen Capítulo 2: Poblacional</p>
+                    <p><b>Control Trabajadores:</b> ${document.getElementById('inp-total-trabajadores').value}</p>
+                    <p><b>Suma Caracterización Afiliados:</b> ${document.getElementById('badge-total-sum-afiliados').innerText}</p>
+                    <p class="italic text-gris mt-2">La consistencia y cuadre de variables cruzadas se encuentra bajo validación del módulo en tiempo real.</p>
+                `;
+            }
+            document.getElementById('modal-preview').classList.remove('hidden-screen');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-preview').classList.add('hidden-screen');
+        }
+
+        function submitForm(capName) {
+            previewForm(capName);
+        }
+
+        function confirmSubmit() {
+            alert('✔️ Registro exitoso. Los datos calculados se han consolidado y alojado en el repositorio central de la base de datos relacional.');
+            closeModal();
+            switchView('admin-metrics');
+        }
+
+        // MOTOR DE GRÁFICOS MEDIANTE CHART.JS CDN
+        function renderAnalyticsCharts() {
+            // Destruir gráficos previos si existen para evitar solapamientos visuales
+            if (dashboardState.charts.exec) dashboardState.charts.exec.destroy();
+            if (dashboardState.charts.hist) dashboardState.charts.hist.destroy();
+
+            // Gráfico 1: Ejecución vs Presupuesto
+            const ctxExec = document.getElementById('chartAdminExec').getContext('2d');
+            dashboardState.charts.exec = new Chart(ctxExec, {
+                type: 'bar',
+                data: {
+                    labels: ['Cap 1. Aportes', 'Cap 2. Subsidios', 'Cap 3. Servicios Cober.'],
+                    datasets: [
+                        {
+                            label: 'Presupuesto Mes ($)',
+                            data: [550000000, 400000000, 500000000],
+                            backgroundColor: '#2E5FA3',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Ejecución Registrada ($)',
+                            data: [542000000, 392250000, 484000000],
+                            backgroundColor: '#A83D1D',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Urbanist', weight: 'bold' } } }
+                    },
+                    scales: {
+                        y: { ticks: { callback: value => '$' + (value / 1000000) + 'M' } }
+                    }
+                }
+            });
+
+            // Gráfico 2: Línea Histórica
+            const ctxHist = document.getElementById('chartAdminHistorico').getContext('2d');
+            dashboardState.charts.hist = new Chart(ctxHist, {
+                type: 'line',
+                data: {
+                    labels: ['Marzo', 'Abril', 'Mayo (Actual)'],
+                    datasets: [
+                        {
+                            label: 'Histórico Año Anterior ($)',
+                            data: [1310000000, 1340000000, 1359000000],
+                            borderColor: '#717171',
+                            backgroundColor: 'transparent',
+                            borderDash: [5, 5],
+                            tension: 0.2
+                        },
+                        {
+                            label: 'Ejercicio Vigente 2026 ($)',
+                            data: [1365000000, 1398000000, 1418250000],
+                            borderColor: '#1B3B6F',
+                            backgroundColor: 'rgba(27, 59, 111, 0.05)',
+                            fill: true,
+                            tension: 0.2,
+                            borderWidth: 3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Urbanist', weight: 'bold' } } }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
